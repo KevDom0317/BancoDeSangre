@@ -4,6 +4,6 @@ class MenuPrincipal
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("SEXO ANAL");
+        Console.WriteLine("Banco de Sangre");
     }
 }
