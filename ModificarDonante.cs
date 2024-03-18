@@ -29,7 +29,32 @@ class ModificarDonante
 
     public void ModificarTipo()
     {
+        Console.WriteLine("Ingrese el código de registro del donante: ");
+        int codigoRegistro = int.Parse(Console.ReadLine());
 
+        Console.WriteLine("Seleccione la opción por la que desea modificar \n1. A \n2. B \n3. O \n4. AB \n5. Volver");
+        int Opcion = int.Parse(Console.ReadLine());
+
+        switch (Opcion)
+        {
+            case 1:
+            break;
+
+            case 2:
+            break;
+
+            case 3:
+            break;
+
+            case 4:
+            break;
+
+            case 5:
+            return;
+            
+            default:
+            break;
+        }
     }
 
     public void ModificarRH()
