@@ -66,6 +66,36 @@ class ModificarDonante
 
         Conexion conexionDB = new Conexion();
         SqlConnection conexion = conexionDB.AbrirConexion();
+
+        if (conexion != null)
+        {
+            string query = "UPDATE REGISTROS SET GrupoSanguineo = @nuevoGrupoSanguineo WHERE codigo_registro = @codigoregistro";
+            SqlCommand comando = new SqlCommand(query, conexion );
+            comando.Parameters.AddWithValue("@nuevoGrupoSanguineo", NuevoGrupoSanguineo);
+            comando.Parameters.AddWithValue("@codigoRegistro", codigoRegistro);
+            
+            try
+            {
+                int filasAfectadas = comando.ExecuteNonQuery();
+
+                if (filasAfectadas > 0)
+                {
+                    Console.WriteLine("El grupo sanguíneo se actualizó correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("No se encontró ningún registro con el código ingresado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                conexionDB.CerrarConexion();
+            }
+        }
     }
 
     public void ModificarRH()
