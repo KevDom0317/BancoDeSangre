@@ -1,10 +1,13 @@
 using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 
 namespace BancoDeSangre;
 
 class ModificarDonante
 {
     public ModificarDonante(){}
+
+    string NuevoGrupoSanguineo = "";
 
     public void MenuModificacion()
     {
@@ -38,23 +41,31 @@ class ModificarDonante
         switch (Opcion)
         {
             case 1:
+                NuevoGrupoSanguineo = "A";
             break;
 
             case 2:
+                NuevoGrupoSanguineo = "B";
             break;
 
             case 3:
+                NuevoGrupoSanguineo = "O";
             break;
 
             case 4:
+                NuevoGrupoSanguineo = "AB";
             break;
 
             case 5:
             return;
             
             default:
+                Console.WriteLine("Seleciona una opción valida");
             break;
         }
+
+        Conexion conexionDB = new Conexion();
+        SqlConnection conexion = conexionDB.AbrirConexion();
     }
 
     public void ModificarRH()
