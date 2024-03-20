@@ -35,52 +35,71 @@ class ModificarDonante
         Console.WriteLine("Ingrese el código de registro del donante: ");
         int codigoRegistro = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Seleccione la opción por la que desea modificar \n1. A \n2. B \n3. O \n4. AB \n5. Volver");
-        int Opcion = int.Parse(Console.ReadLine());
-
-        switch (Opcion)
-        {
-            case 1:
-                NuevoGrupoSanguineo = "A";
-            break;
-
-            case 2:
-                NuevoGrupoSanguineo = "B";
-            break;
-
-            case 3:
-                NuevoGrupoSanguineo = "O";
-            break;
-
-            case 4:
-                NuevoGrupoSanguineo = "AB";
-            break;
-
-            case 5:
-            return;
-            
-            default:
-                Console.WriteLine("Seleciona una opción valida");
-            break;
-        }
-
-        Conexion conexionDB = new Conexion();
-        SqlConnection conexion = conexionDB.AbrirConexion();
+        Conexion conexionBD = new Conexion();
+        SqlConnection conexion = conexionBD.AbrirConexion();
 
         if (conexion != null)
         {
-            string query = "UPDATE REGISTROS SET GrupoSanguineo = @nuevoGrupoSanguineo WHERE codigo_registro = @codigoregistro";
-            SqlCommand comando = new SqlCommand(query, conexion );
-            comando.Parameters.AddWithValue("@nuevoGrupoSanguineo", NuevoGrupoSanguineo);
+            string query = "SELECT Nombre, GrupoSanguineo FROM REGISTROS WHERE codigo_registro = @codigoRegistro";
+            SqlCommand comando = new SqlCommand(query, conexion);
             comando.Parameters.AddWithValue("@codigoRegistro", codigoRegistro);
-            
+
             try
             {
-                int filasAfectadas = comando.ExecuteNonQuery();
+                SqlDataReader reader = comando.ExecuteReader();
 
-                if (filasAfectadas > 0)
+                if (reader.Read())
                 {
-                    Console.WriteLine("El grupo sanguíneo se actualizó correctamente.");
+                    string nombreDonante = reader["Nombre"].ToString();
+                    string tipoSangreActual = reader["GrupoSanguineo"].ToString();
+
+                    Console.WriteLine($"Nombre del donante: {nombreDonante}");
+                    Console.WriteLine($"Tipo de sangre actual: {tipoSangreActual}");
+
+                    Console.WriteLine("Seleccione la opción por la que desea modificar \n1. A \n2. B \n3. O \n4. AB \n5. Volver");
+                    int Opcion = int.Parse(Console.ReadLine());
+
+                    switch (Opcion)
+                    {
+                        case 1:
+                            NuevoGrupoSanguineo = "A";
+                        break;
+
+                        case 2:
+                            NuevoGrupoSanguineo = "B";
+                        break;
+
+                        case 3:
+                            NuevoGrupoSanguineo = "O";
+                        break;
+
+                        case 4:
+                            NuevoGrupoSanguineo = "AB";
+                        break;
+
+                        case 5:
+                        return;
+                        
+                        default:
+                            Console.WriteLine("Seleciona una opción valida");
+                        break;
+                    }
+                    query = "UPDATE REGISTROS SET GrupoSanguineo = @nuevoGrupoSanguineo WHERE codigo_registro = @codigoRegistro";
+                    comando = new SqlCommand(query, conexion);
+                    comando.Parameters.AddWithValue("@nuevoGrupoSanguineo", NuevoGrupoSanguineo);
+                    comando.Parameters.AddWithValue("@codigoRegistro", codigoRegistro);
+
+                    int filasAfectadas = comando.ExecuteNonQuery();
+
+                    if (filasAfectadas > 0)
+                    {
+                        Console.WriteLine("El grupo sanguíneo se actualizó correctamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se encontró ningún registro con el código ingresado.");
+                    }
+                    
                 }
                 else
                 {
@@ -93,7 +112,7 @@ class ModificarDonante
             }
             finally
             {
-                conexionDB.CerrarConexion();
+                conexionBD.CerrarConexion();
             }
         }
     }
