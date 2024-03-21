@@ -3,11 +3,12 @@ namespace BancoDeSangre;
 
 public class Conexion
 {
-    private string Stringconexion="Server=KEVDOMINICK;Database=BANCODESANGRE;Integrated Security=True;";
+    // CAMBIA EL NOMBRE DE TU SERVIDOR PLSSS
+    private string Stringconexion="Server=DESKTOP-0R5MCC8;Database=BANCODESANGRE;Integrated Security=True;TrustServerCertificate=True;";
     public SqlConnection conexion;
     public Conexion()
     {
-        conexion=new SqlConnection(Stringconexion);
+        conexion =new SqlConnection(Stringconexion);
     }
     public SqlConnection? AbrirConexion()
     {
@@ -16,9 +17,10 @@ public class Conexion
             conexion.Open();
             return conexion;    
         }
-        catch (System.Exception)
+        catch (Exception ex)
         {
-            Console.WriteLine("No se realizó la conexión");
+            Console.WriteLine($"No se realizó la conexión: Error {ex.Message}");
+            Console.ReadKey();
             return null;
         }
         

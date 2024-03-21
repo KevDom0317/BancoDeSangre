@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj": {}
+    "C:\\Users\\Rafael X\\Downloads\\Repositorios\\BancoDeSangre\\BancoDeSangre.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj": {
+    "C:\\Users\\Rafael X\\Downloads\\Repositorios\\BancoDeSangre\\BancoDeSangre.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj",
+        "projectUniqueName": "C:\\Users\\Rafael X\\Downloads\\Repositorios\\BancoDeSangre\\BancoDeSangre.csproj",
         "projectName": "BancoDeSangre",
-        "projectPath": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\obj\\",
+        "projectPath": "C:\\Users\\Rafael X\\Downloads\\Repositorios\\BancoDeSangre\\BancoDeSangre.csproj",
+        "packagesPath": "C:\\Users\\Rafael X\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafael X\\Downloads\\Repositorios\\BancoDeSangre\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Rafael X\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -59,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
