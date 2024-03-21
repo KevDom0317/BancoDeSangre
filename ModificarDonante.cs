@@ -1,124 +1,55 @@
-using System.Diagnostics;
+using System;
 using Microsoft.Data.SqlClient;
 
-namespace BancoDeSangre;
-
-class ModificarDonante
+namespace BancoDeSangre
 {
-    public ModificarDonante(){}
-
-    string NuevoGrupoSanguineo = "";
-
-    public void MenuModificacion()
+    public class ModificarDonante
     {
-        Console.WriteLine("Que tipo de modificación deséa realizar? \n1. Modificar tipo de sangre. \n2.Modificar RH.");
-        int opcion = int.Parse(Console.ReadLine());
+        private Conexion conexion;
 
-        switch (opcion)
+        public ModificarDonante()
         {
-            case 1:
-                ModificarTipo();
-                break;
-
-            case 2:
-                ModificarRH();
-                break;
-
-            default:
-                Console.WriteLine("Porfavor, selccione una opción permitida");
-                break;
+            conexion = new Conexion();
         }
-    }
 
-    public void ModificarTipo()
-    {
-        Console.WriteLine("Ingrese el código de registro del donante: ");
-        int codigoRegistro = int.Parse(Console.ReadLine());
-
-        Conexion conexionBD = new Conexion();
-        SqlConnection conexion = conexionBD.AbrirConexion();
-
-        if (conexion != null)
+        public void MoverDonanteABaja(string nombreDonante)
         {
-            string query = "SELECT Nombre, GrupoSanguineo FROM REGISTROS WHERE codigo_registro = @codigoRegistro";
-            SqlCommand comando = new SqlCommand(query, conexion);
-            comando.Parameters.AddWithValue("@codigoRegistro", codigoRegistro);
+            // Query para mover los datos del donante a REGISTROSBAJA y eliminarlos de REGISTROS
+            string queryModify = @"
+                -- Mover datos del donante a la tabla REGISTROSBAJA
+                INSERT INTO REGISTROSBAJA (Nombre, Numero, Direccion, GrupoSanguineo, Rh, Estatus, Motivo)
+                SELECT Nombre, Numero, Direccion, GrupoSanguineo, Rh, 'Baja', 'Motivo de baja'
+                FROM REGISTROS
+                WHERE Nombre = @NombreDonante;
+
+                -- Eliminar datos del donante de la tabla REGISTROS
+                DELETE FROM REGISTROS
+                WHERE Nombre = @NombreDonante;
+            ";
 
             try
             {
-                SqlDataReader reader = comando.ExecuteReader();
-
-                if (reader.Read())
+                // Abrir conexión
+                using (SqlConnection? connection = conexion.AbrirConexion())
+                using (SqlCommand command = new SqlCommand(queryModify, connection))
                 {
-                    string nombreDonante = reader["Nombre"].ToString();
-                    string tipoSangreActual = reader["GrupoSanguineo"].ToString();
+                    // Asignar parámetro de nombre de donante
+                    command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
 
-                    Console.WriteLine($"Nombre del donante: {nombreDonante}");
-                    Console.WriteLine($"Tipo de sangre actual: {tipoSangreActual}");
-
-                    Console.WriteLine("Seleccione la opción por la que desea modificar \n1. A \n2. B \n3. O \n4. AB \n5. Volver");
-                    int Opcion = int.Parse(Console.ReadLine());
-
-                    switch (Opcion)
-                    {
-                        case 1:
-                            NuevoGrupoSanguineo = "A";
-                        break;
-
-                        case 2:
-                            NuevoGrupoSanguineo = "B";
-                        break;
-
-                        case 3:
-                            NuevoGrupoSanguineo = "O";
-                        break;
-
-                        case 4:
-                            NuevoGrupoSanguineo = "AB";
-                        break;
-
-                        case 5:
-                        return;
-                        
-                        default:
-                            Console.WriteLine("Seleciona una opción valida");
-                        break;
-                    }
-                    query = "UPDATE REGISTROS SET GrupoSanguineo = @nuevoGrupoSanguineo WHERE codigo_registro = @codigoRegistro";
-                    comando = new SqlCommand(query, conexion);
-                    comando.Parameters.AddWithValue("@nuevoGrupoSanguineo", NuevoGrupoSanguineo);
-                    comando.Parameters.AddWithValue("@codigoRegistro", codigoRegistro);
-
-                    int filasAfectadas = comando.ExecuteNonQuery();
-
-                    if (filasAfectadas > 0)
-                    {
-                        Console.WriteLine("El grupo sanguíneo se actualizó correctamente.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("No se encontró ningún registro con el código ingresado.");
-                    }
-                    
-                }
-                else
-                {
-                    Console.WriteLine("No se encontró ningún registro con el código ingresado.");
+                    // Ejecutar consulta
+                    command.ExecuteNonQuery();
+                    Console.WriteLine($"Los datos del donante '{nombreDonante}' se han movido a la tabla REGISTROSBAJA.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine($"Error al mover datos del donante a REGISTROSBAJA: {ex.Message}");
             }
             finally
             {
-                conexionBD.CerrarConexion();
+                // Cerrar conexión
+                conexion.CerrarConexion();
             }
         }
-    }
-
-    public void ModificarRH()
-    {
-
     }
 }
