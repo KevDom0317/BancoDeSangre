@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace BancoDeSangre
 {
-    public class ModificarDonante
+    public class ModificarDonante:Variables
     {
         private Conexion conexion;
 
@@ -12,13 +12,13 @@ namespace BancoDeSangre
             conexion = new Conexion();
         }
 
-        public void MoverDonanteABaja(string nombreDonante)
+        public void MoverDonanteABaja(string nombreDonante, string Estatus, string Motivo)
         {
             // Query para mover los datos del donante a REGISTROSBAJA y eliminarlos de REGISTROS
-            string queryModify = @"
+            string queryModify = @$"
                 -- Mover datos del donante a la tabla REGISTROSBAJA
                 INSERT INTO REGISTROSBAJA (Nombre, Numero, Direccion, GrupoSanguineo, Rh, Estatus, Motivo)
-                SELECT Nombre, Numero, Direccion, GrupoSanguineo, Rh, 'Baja', 'Motivo de baja'
+                SELECT Nombre, Numero, Direccion, GrupoSanguineo, Rh, '{Estatus}', '{Motivo}'
                 FROM REGISTROS
                 WHERE Nombre = @NombreDonante;
 
@@ -51,5 +51,51 @@ namespace BancoDeSangre
                 conexion.CerrarConexion();
             }
         }
+
+        public void CambiarDonante()
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el nombre del donante: ");
+                    Nombre=Console.ReadLine();
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Valor no aceptado.");
+                }
+            }
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el estatus: ");
+                    Estatus=Console.ReadLine();
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Valor no aceptado.");
+                }
+            }
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el motivo: ");
+                    Motivo=Console.ReadLine();
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Valor no aceptado.");
+                }
+            }
+            MoverDonanteABaja(Nombre, Estatus, Motivo);
+        }
     }
+
+
 }

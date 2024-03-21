@@ -2,17 +2,14 @@ using Microsoft.Data.SqlClient;
 
 namespace BancoDeSangre;
 
-class EncontrarEmparejamiento
+class EncontrarEmparejamiento:Variables
 {
     public EncontrarEmparejamiento(){}
 
     Conexion conect=new Conexion();
     
-    public void UsuariosCompatibles()
+    public void UsuariosCompatibles(string? tipoSangre, string? rh)
     {
-     
-        string? tipoSangre = "A";
-        string? rh = "+";
         try
         {
             string Query5 = $@"
@@ -46,5 +43,36 @@ class EncontrarEmparejamiento
         {
             conect.CerrarConexion();
         }
+    }
+
+    public void EncontrarDonante()
+    {
+        while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el grupo sanguíneo: ");
+                    GrupoSanguineo=Console.ReadLine();
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Valor no aceptado.");
+                }
+            }
+        while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el RH: ");
+                    GrupoSanguineo=Console.ReadLine();
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Valor no aceptado.");
+                }
+            }
+        UsuariosCompatibles(GrupoSanguineo,Rh);
     }
 }
