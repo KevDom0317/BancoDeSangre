@@ -4,7 +4,7 @@ namespace BancoDeSangre;
 public class Conexion
 {
     // CAMBIA EL NOMBRE DE TU SERVIDOR PLSSS
-    private string Stringconexion="Server=DESKTOP-0R5MCC8;Database=BANCODESANGRE;Integrated Security=True;TrustServerCertificate=True;";
+    private string Stringconexion="Server=KEVDOMINICK;Database=BANCODESANGRE;Integrated Security=True;TrustServerCertificate=True;";
     public SqlConnection conexion;
     public Conexion()
     {
