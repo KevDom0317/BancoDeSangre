@@ -8,7 +8,6 @@ class EncontrarEmparejamiento
 
     Conexion conect=new Conexion();
     
-       
     public void UsuariosCompatibles()
     {
      
@@ -16,13 +15,12 @@ class EncontrarEmparejamiento
         string? rh = "+";
         try
         {
-            string Query5 = @"
+            string Query5 = $@"
             SELECT R.Nombre, R.Numero, R.Direccion, R.GrupoSanguineo, R.Rh
             FROM REGISTROS R
             INNER JOIN COMPATIBILIDAD C ON R.GrupoSanguineo = C.Tipo AND R.Rh = C.Rh
-            WHERE C.TipoCompatible = @tipoSangre
-                AND C.RhCompatible = @rh;
-            ";
+            WHERE C.TipoCompatible = '{tipoSangre}'
+                AND C.RhCompatible = '{rh}'";
             var cmd5 = new SqlCommand(Query5, conect.AbrirConexion());
 
             using SqlDataReader reader = cmd5.ExecuteReader();
@@ -32,6 +30,12 @@ class EncontrarEmparejamiento
                 {
                 Console.WriteLine($"{reader["Nombre"]}, {reader["Numero"]}, {reader["Direccion"]}, {reader["GrupoSanguineo"]}, {reader["Rh"]}");
                 }
+                Console.ReadKey(); // ESPERA A QUE VERIFIQUE EL ERROR [[ BORRAR EN FUTURO ]]
+            }
+            else
+            {
+                Console.WriteLine("No tiene bro");
+                Console.ReadKey(); // ESPERA A QUE VERIFIQUE EL ERROR [[ BORRAR EN FUTURO ]]
             }
         }
         catch (Exception ex)
