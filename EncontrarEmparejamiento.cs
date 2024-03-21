@@ -1,15 +1,46 @@
+using Azure.Core.Pipeline;
+using Microsoft.Data.Sql;
 using Microsoft.Data.SqlClient;
 
 namespace BancoDeSangre;
 
-class EncontrarEmparejamiento:Variables
+class EncontrarEmparejamiento
 {
     public EncontrarEmparejamiento(){}
 
     Conexion conect=new Conexion();
-    
-    public void UsuariosCompatibles(string? tipoSangre, string? rh)
+    public void UsuariosCompatibles()
     {
+        string? tipoSangre = "";
+        string? rh = "";
+        do
+        {
+            Console.WriteLine("Introduce el tipo de sangre [A, B, AB, O]");
+            tipoSangre = Console.ReadLine();
+            if(tipoSangre != "A" && tipoSangre !="B" && tipoSangre != "AB" && tipoSangre != "O")
+            {
+                Console.WriteLine("Ese tipo de sangre no existe. Introduce un valido");
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }while(true);
+        do
+        {
+            Console.WriteLine("Su RH es positiva [+] o negativa [-]?");
+            rh = Console.ReadLine();
+            if(rh != "+" && rh != "-")
+            {
+                Console.WriteLine("Ese tipo de RH no existe");
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }while(true);
         try
         {
             string Query5 = $@"
@@ -45,34 +76,4 @@ class EncontrarEmparejamiento:Variables
         }
     }
 
-    public void EncontrarDonante()
-    {
-        while (true)
-            {
-                try
-                {
-                    Console.WriteLine("Ingrese el grupo sanguíneo: ");
-                    GrupoSanguineo=Console.ReadLine();
-                    break;
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Valor no aceptado.");
-                }
-            }
-        while (true)
-            {
-                try
-                {
-                    Console.WriteLine("Ingrese el RH: ");
-                    GrupoSanguineo=Console.ReadLine();
-                    break;
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Valor no aceptado.");
-                }
-            }
-        UsuariosCompatibles(GrupoSanguineo,Rh);
-    }
 }

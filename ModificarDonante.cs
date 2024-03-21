@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Data.SqlClient;
-
+//Falta agregar el motivo por el cual se le esta dando de baja
 namespace BancoDeSangre
 {
-    public class ModificarDonante:Variables
+    public class ModificarDonante
     {
         private Conexion conexion;
 
@@ -11,18 +11,16 @@ namespace BancoDeSangre
         {
             conexion = new Conexion();
         }
-
-        public void MoverDonanteABaja(string nombreDonante, string Estatus, string Motivo)
+        
+        public void MoverDonanteABaja(string nombreDonante, string motivoBaja)
         {
             // Query para mover los datos del donante a REGISTROSBAJA y eliminarlos de REGISTROS
-            string queryModify = @$"
+            string queryModify = @"
                 -- Mover datos del donante a la tabla REGISTROSBAJA
                 INSERT INTO REGISTROSBAJA (Nombre, Numero, Direccion, GrupoSanguineo, Rh, Estatus, Motivo)
-                SELECT Nombre, Numero, Direccion, GrupoSanguineo, Rh, '{Estatus}', '{Motivo}'
+                SELECT Nombre, Numero, Direccion, GrupoSanguineo, Rh, 'Baja', 'Motivo de baja'
                 FROM REGISTROS
                 WHERE Nombre = @NombreDonante;
-
-                -- Eliminar datos del donante de la tabla REGISTROS
                 DELETE FROM REGISTROS
                 WHERE Nombre = @NombreDonante;
             ";
@@ -35,6 +33,7 @@ namespace BancoDeSangre
                 {
                     // Asignar parámetro de nombre de donante
                     command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
+                    command.Parameters.AddWithValue("@Motivo", motivoBaja);
 
                     // Ejecutar consulta
                     command.ExecuteNonQuery();
@@ -51,51 +50,5 @@ namespace BancoDeSangre
                 conexion.CerrarConexion();
             }
         }
-
-        public void CambiarDonante()
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.WriteLine("Ingrese el nombre del donante: ");
-                    Nombre=Console.ReadLine();
-                    break;
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Valor no aceptado.");
-                }
-            }
-            while (true)
-            {
-                try
-                {
-                    Console.WriteLine("Ingrese el estatus: ");
-                    Estatus=Console.ReadLine();
-                    break;
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Valor no aceptado.");
-                }
-            }
-            while (true)
-            {
-                try
-                {
-                    Console.WriteLine("Ingrese el motivo: ");
-                    Motivo=Console.ReadLine();
-                    break;
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Valor no aceptado.");
-                }
-            }
-            MoverDonanteABaja(Nombre, Estatus, Motivo);
-        }
     }
-
-
 }

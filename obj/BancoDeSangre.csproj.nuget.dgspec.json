@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj": {}
+    "/home/gogphojoh/Documents/BancoDeSangre/BancoDeSangre.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj": {
+    "/home/gogphojoh/Documents/BancoDeSangre/BancoDeSangre.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj",
+        "projectUniqueName": "/home/gogphojoh/Documents/BancoDeSangre/BancoDeSangre.csproj",
         "projectName": "BancoDeSangre",
-        "projectPath": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\BancoDeSangre.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\OneDrive\\Documentos\\GitHub\\BancoDeSangre\\obj\\",
+        "projectPath": "/home/gogphojoh/Documents/BancoDeSangre/BancoDeSangre.csproj",
+        "packagesPath": "/home/gogphojoh/.nuget/packages/",
+        "outputPath": "/home/gogphojoh/Documents/BancoDeSangre/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/gogphojoh/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -35,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
