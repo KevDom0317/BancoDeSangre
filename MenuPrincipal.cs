@@ -12,7 +12,7 @@ class MenuPrincipal
         Console.WriteLine("Bienvenido al Banco de Sangre");
         do
         {
-            Console.WriteLine("¿Qué deseas realizar? \n [1]Registrarse \n [2]Encontrar usuarios compatibles \n [3]Dar de baja un donante \n [4]Ver la cantidad de tipos de sangre disponibles \n [5]Recuperar los datos de un donante \n [6]Ver todas las bajas \n [7]Abandonar");
+            Console.WriteLine("¿Qué deseas realizar? \n [1]Registrarse \n [2]Encontrar usuarios compatibles \n [3]Dar de baja un donante \n [4]Reactivar Donante \n [5]Ver la cantidad de tipos de sangre disponibles \n [6]Recuperar los datos de un donante \n [7]Ver todas las bajas \n [8]Abandonar");
             opc = Console.ReadLine() ?? "";
             EncontrarEmparejamiento empa= new EncontrarEmparejamiento();
             RegistroDonante Reg = new RegistroDonante();
@@ -36,15 +36,20 @@ class MenuPrincipal
                 Mod.MoverDonanteABaja(Nombre, Motivo);
                 break;
                 case"4":
-                Cant.Cantidades();
+                Console.WriteLine("Introduce el Nombre del donante al cual quieras reactivar");
+                string Nombre1 = Console.ReadLine()?? "";
+                Mod.ReactivarDonante(Nombre1);
                 break;
                 case"5":
-                Recu.enconUsuario();
+                Cant.Cantidades();
                 break;
                 case"6":
-                Busc.enconBaja();
+                Recu.enconUsuario();
                 break;
                 case"7":
+                Busc.enconBaja();
+                break;
+                case"8":
                 Console.WriteLine("Abandonando...");
                 con = false;
                 break;
